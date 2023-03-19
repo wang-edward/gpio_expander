@@ -44,17 +44,18 @@ CAT9555::CAT9555(uint8_t addr)
 
 void CAT9555::begin(){
 
-	debug(10);
+  Serial.println("a1");
+	// writeRegister(CONFIG_PORT0, 0x0E);	// setup direction register port0
+	// writeRegister(CONFIG_PORT0, 0xFF);	// setup direction register port0
+	
+  Serial.println("a2");
 
+	// writeRegister(CONFIG_PORT1, 0x7F);	// setup direction register port1
+	// writeRegister(CONFIG_PORT1, 0xFF);	// setup direction register port1
+  Serial.println("a3");
 
-	writeRegister(CONFIG_PORT0, 0x0E);	// setup direction register port0
-	debug(20);
-
-	writeRegister(CONFIG_PORT1, 0x7F);	// setup direction register port1
-	debug(30);
-
-	writeRegister(OUTPUT_PORT0, 0x3c);	// set all output pin to LOW level
-	debug(40);
+	// writeRegister(OUTPUT_PORT0, 0x3c);	// set all output pin to LOW level
+  Serial.println("a4");
 
 
 }
@@ -80,15 +81,27 @@ void CAT9555::digitalWrite(int PIN, int data){
 int CAT9555::digitalRead(int PIN){
 
 	uint16_t data = read_16_Register(INPUT_PORT0);
-	// Serial.println(data,BIN);
+	Serial.print("data: ");Serial.print(data,BIN);
 	int result = (data ^ 0x30FF) & PIN;  //0xFFFF
 	
-	Serial.println(result,BIN);
+	// Serial.print("result: ");Serial.println(result, BIN);
 
-	if (result)
-		return HIGH;
-	else
-		return result;
+	// if (result == 0b111111111111110) {
+	// 	Serial.print("result=true, ");
+	// 	return HIGH;
+	// } else {
+	// 	Serial.print("result=false, ");
+	// 	return result;
+	// }
+
+	// if (result) {
+	// 	Serial.print("result=true, ");
+	// 	return HIGH;
+	// } else {
+	// 	Serial.print("result=false, ");
+	// 	return result;
+	// }
+
 	
 }
 // WRITE REGISTER
@@ -97,7 +110,8 @@ void CAT9555::writeRegister(int reg, int data)
     Wire.beginTransmission(address);  
     Wire.write(reg); 
     Wire.write(data); 
-    Wire.endTransmission(); 
+    Wire.endTransmission();  
+
 }
 
 

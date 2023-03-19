@@ -76,7 +76,7 @@ public:
 	int digitalRead(int pin);
 	void digitalWrite(int pin, int value);
 
-private:
+// private: TODO MAKE PRIVATE AGAIN
 	byte address;
 	void writeRegister(int reg, int data);
 	uint8_t read_8_Register(int reg);
